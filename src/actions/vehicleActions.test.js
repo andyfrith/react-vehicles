@@ -62,8 +62,8 @@ describe( 'Vehicles Data Cleanup', () => {
   } );
 
   it( 'should ensure each vehicle has an id', () => {
-    for ( let a = 0; a < cleanedData.length; a += 1 ) {
-      expect( cleanedData[ a ].id ).toBeDefined();
-    }
+    cleanedData.forEach( ( element ) => {
+      expect( element.id ).toBeDefined();
+    } );
   } );
 } );
