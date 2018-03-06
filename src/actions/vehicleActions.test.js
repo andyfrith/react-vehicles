@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import {
@@ -58,7 +59,19 @@ describe( 'Vehicles Data Cleanup', () => {
   const cleanedData = clean( data );
 
   it( 'should ensure no duplicates', () => {
-    expect( 1 ).toEqual( 1 );
+    const hasDuplicates = ( a ) => {
+      const counts = [];
+      for ( let i = 0; i <= a.length; i += 1 ) {
+        if ( counts[ a[ i ] ] === undefined ) {
+          counts[ a[ i ] ] = 1;
+        } else {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    expect( hasDuplicates( cleanedData ) ).toBe( false );
   } );
 
   it( 'should ensure each vehicle has an id', () => {
