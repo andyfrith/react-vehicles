@@ -5,13 +5,13 @@ describe( 'Vehicles API', () => {
     const data = await VehiclesAPI.getAllVehicles();
     expect( data ).toBeDefined();
 
-    for ( let n = 0; n < data.length; n += 1 ) {
-      expect( data[ n ].make ).toBeDefined();
-      expect( data[ n ].model ).toBeDefined();
-      expect( data[ n ].year ).toBeDefined();
-      expect( data[ n ].mileage ).toBeDefined();
-      expect( data[ n ].image_url ).toBeDefined();
-      expect( data[ n ].created_at ).toBeDefined();
-    }
+    data.forEach( ( element ) => {
+      expect( element.make ).toBeDefined();
+      expect( element.model ).toBeDefined();
+      expect( element.year ).toBeDefined();
+      expect( element.mileage ).toBeDefined();
+      expect( element.image_url ).toBeDefined();
+      expect( element.created_at ).toBeDefined();
+    } );
   } );
 } );
