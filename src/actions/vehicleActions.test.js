@@ -55,8 +55,13 @@ describe( 'Vehicle Actions', () => {
 } );
 
 describe( 'Vehicles Data Cleanup', () => {
-  const data = [ { make: 'Acura' }, { make: 'Acura' }, { make: 'Audi' } ];
-  const cleanedData = clean( data );
+  let vehiclesData;
+  let cleanVehicles;
+
+  beforeEach( () => {
+    vehiclesData = [ { make: 'Acura' }, { make: 'Acura' }, { make: 'Audi' } ];
+    cleanVehicles = clean( vehiclesData );
+  } );
 
   it( 'should ensure no duplicates', () => {
     const hasDuplicates = ( a ) => {
@@ -71,11 +76,11 @@ describe( 'Vehicles Data Cleanup', () => {
       return true;
     };
 
-    expect( hasDuplicates( cleanedData ) ).toBe( false );
+    expect( hasDuplicates( cleanVehicles ) ).toBe( false );
   } );
 
   it( 'should ensure each vehicle has an id', () => {
-    cleanedData.forEach( ( element ) => {
+    cleanVehicles.forEach( ( element ) => {
       expect( element.id ).toBeDefined();
     } );
   } );
