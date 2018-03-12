@@ -4,7 +4,7 @@ This demo is a React Redux application that provides a sortable, filterable list
 
 Features:
 
-* Ability to display, add, update and remove users
+* Ability to sort and filter a list of vehicles, as well as access a detailed view.
 * Maintains application state across page routes
 * Has a basic UI built using React [Material-UI](https://material-ui-next.com/) components
 
