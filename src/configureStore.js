@@ -1,10 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import vehiclesSaga from './sagas/vehiclesSaga';
 import reducers from './reducers';
+
+const sagaMiddleware = createSagaMiddleware();
 
 const configureStore = () => {
   const middlewares = [];
-  middlewares.push( thunk );
+  middlewares.push( sagaMiddleware );
 
   if ( process.env.NODE_ENV === 'development' ) {
     // eslint-disable-next-line global-require
@@ -14,6 +17,7 @@ const configureStore = () => {
   }
 
   const store = createStore( reducers, {}, applyMiddleware( ...middlewares ) );
+  sagaMiddleware.run( vehiclesSaga );
   return store;
 };
 
