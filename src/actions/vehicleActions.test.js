@@ -1,8 +1,9 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+// import configureMockStore from 'redux-mock-store';
+// import thunk from 'redux-thunk';
 import {
-  clean,
-  loadVehicles,
+  ensureUniqueItems,
+  enhanceItemsWithId,
+  // loadVehicles,
   selectVehicle,
   loadVehiclesFailure,
   loadVehiclesSuccess,
@@ -10,18 +11,18 @@ import {
 import * as types from './actionTypes';
 
 describe( 'Vehicle Actions', () => {
-  it( 'should retrieve vehicles data and dispatch load vehicles success', () => {
-    const middlewares = [ thunk ];
-    const mockStore = configureMockStore( middlewares );
-    const store = mockStore( { vehicles: {} } );
-    const expectedActions = [
-      { type: types.LOAD_VEHICLES_SUCCESS, vehicles: [] },
-    ];
+  // it( 'should retrieve vehicles data and dispatch load vehicles success', () => {
+  //   const middlewares = [ thunk ];
+  //   const mockStore = configureMockStore( middlewares );
+  //   const store = mockStore( { vehicles: {} } );
+  //   const expectedActions = [
+  //     { type: types.LOAD_VEHICLES_SUCCESS, vehicles: [] },
+  //   ];
 
-    return store.dispatch( loadVehicles() ).then( () => {
-      expect( store.getActions().type ).toEqual( expectedActions.type );
-    } );
-  } );
+  //   return store.dispatch( loadVehicles() ).then( () => {
+  //     expect( store.getActions().type ).toEqual( expectedActions.type );
+  //   } );
+  // } );
 
   it( 'should create an action to signify sucessful load of vehicles data', () => {
     const vehicles = [];
@@ -37,7 +38,7 @@ describe( 'Vehicle Actions', () => {
     const expectedAction = {
       type: types.LOAD_VEHICLES_FAILURE,
       isFetching: false,
-      message: 'LOAD_VEHICLES_DATA_UNSUCCESSFUL',
+      error: 'LOAD_VEHICLES_DATA_UNSUCCESSFUL',
     };
     expect( loadVehiclesFailure( 'LOAD_VEHICLES_DATA_UNSUCCESSFUL' ) ).toEqual( expectedAction );
   } );
@@ -55,11 +56,11 @@ describe( 'Vehicle Actions', () => {
 
 describe( 'Vehicles Data Cleanup', () => {
   let vehiclesData;
-  let cleanVehicles;
+  let uniqueVehicles;
 
   beforeEach( () => {
     vehiclesData = [ { make: 'Acura' }, { make: 'Acura' }, { make: 'Audi' } ];
-    cleanVehicles = clean( vehiclesData );
+    uniqueVehicles = ensureUniqueItems( vehiclesData );
   } );
 
   it( 'should ensure no duplicates', () => {
@@ -75,11 +76,11 @@ describe( 'Vehicles Data Cleanup', () => {
       return true;
     };
 
-    expect( hasDuplicates( cleanVehicles ) ).toBe( false );
+    expect( hasDuplicates( uniqueVehicles ) ).toBe( false );
   } );
 
   it( 'should ensure each vehicle has an id', () => {
-    cleanVehicles.forEach( ( element ) => {
+    enhanceItemsWithId( uniqueVehicles ).forEach( ( element ) => {
       expect( element.id ).toBeDefined();
     } );
   } );

@@ -23,7 +23,6 @@ const Vehicles = props => (
 );
 
 Vehicles.propTypes = {
-  classes: PropTypes.object.isRequired,
   vehicles: PropTypes.array.isRequired,
 };
 

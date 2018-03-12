@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { CircularProgress } from 'material-ui/Progress';
 import { selectVehicle } from '../../actions/vehicleActions';
 import {
   setVisibilityFilter,
@@ -29,6 +30,14 @@ class CarsContainer extends React.Component {
   };
 
   render() {
+    if ( this.props.error !== '' ) {
+      return <div>Error: {this.props.error}</div>;
+    }
+
+    if ( this.props.isFetching ) {
+      return <CircularProgress />;
+    }
+
     return (
       <Cars
         cars={this.props.vehicles}
@@ -47,6 +56,8 @@ CarsContainer.propTypes = {
   vehicles: PropTypes.array.isRequired,
   sortOption: PropTypes.string.isRequired,
   filterText: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
   selectedVehicle: PropTypes.object.isRequired,
   setVisibilityFilterConnect: PropTypes.func.isRequired,
   setFilterTextConnect: PropTypes.func.isRequired,
@@ -67,7 +78,7 @@ const getVisibleVehicles = ( vehicles, filter, filterText, sortOption ) => {
 
 const mapStateToProps = state => ( {
   vehicles: getVisibleVehicles(
-    state.vehicles,
+    state.vehicles.vehicles,
     state.visibilityFilter,
     state.filterText,
     state.sortOption,
@@ -75,6 +86,8 @@ const mapStateToProps = state => ( {
   filterText: state.filterText,
   sortOption: state.sortOption,
   selectedVehicle: state.selectedVehicle,
+  isFetching: state.vehicles.isFetching,
+  error: state.vehicles.error,
 } );
 
 export default connect( mapStateToProps, {

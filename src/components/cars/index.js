@@ -35,14 +35,14 @@ const Cars = props => (
       </Paper>
     </Grid>
     {/* <Grid item sm={4} xs={12}>
-      <Paper className={props.classes.paper}>
-        <SearchFilters makesModels={[]} />
-      </Paper>
-    </Grid> */}
+        <Paper className={props.classes.paper}>
+          <SearchFilters makesModels={[]} />
+        </Paper>
+      </Grid> */}
     <Grid item sm={12} xs={12}>
       {/* <Paper className={props.classes.paper}>
-        <AppliedFilters />
-      </Paper> */}
+          <AppliedFilters />
+        </Paper> */}
       <Paper className={props.classes.paper}>
         <Sort
           sortByOption={props.sortOption}

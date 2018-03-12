@@ -49,7 +49,7 @@ class CarList extends React.Component {
           {cars.map( car => (
             <Link
               className={classes.link}
-              key={car.id}
+              key={Math.random()}
               onClick={() => this.handleClick( car )}
               to={`/car/${ car.id }`}
             >
