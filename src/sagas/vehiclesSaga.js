@@ -12,7 +12,7 @@ function* loadVehicles() {
   try {
     const vehicles = yield vehiclesAPI.getAllVehicles();
     const ensured = ensureUniqueItems( vehicles );
-    const cleaned = yield enhanceItemsWithId( ensured );
+    const cleaned = enhanceItemsWithId( ensured );
     yield put( { type: types.LOAD_VEHICLES_SUCCESS, vehicles: cleaned } );
   } catch ( e ) {
     yield put( { type: types.LOAD_VEHICLES_FAILURE } );
